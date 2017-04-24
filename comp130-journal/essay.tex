@@ -1,0 +1,60 @@
+% Please do not change the document class
+\documentclass{scrartcl}
+
+% Please do not change these packages
+\usepackage[hidelinks]{hyperref}
+\usepackage[none]{hyphenat}
+\usepackage{setspace}
+\doublespace
+
+% You may add additional packages here
+\usepackage{amsmath}
+
+% Please include a clear, concise, and descriptive title
+\title{Could the combination of Artificial intelligence and robotics field a Robotic Volleyball team capable of beating a human team?}
+
+% Please do not change the subtitle
+\subtitle{COMP130 - Research Journal}
+
+% Please put your student number in the author field
+\author{1605629}
+
+\begin{document}
+
+\maketitle
+
+\abstract{As both artificial intelligence and robotic technology advance there becomes a greater possibility of robots that are capable of playing sport, and possibly even beaten humans at sport too. Although there have already been many attempts at football playing robots, there have been very few attempts at a robot that can play a sport that requires a large range of multidirectional movement, strong teamwork, and a high degreee of projectile accuracy. I feel that developing a robot for a sport that requires all these attributes would massively increase the development of both AI and robotics. Volleyball is such a sport. In this paper I will collate data about the many different attributes that are required and will determine whether a team of volleyball playing robots could ever achieve victory against a human volleyball team. }
+
+\section{Introduction}
+
+The advancements in artificial intelligence (AI) and robotics has allowed the development of sport playing robots. Many of these robots, however, have been designed for relatively simple sports, such as football, that focus on a few key areas, but don't cover a wide spectrum of requirements and attributes, mainly focusing on teamworking skills and localisation \cite{teimouri2016hybrid}. However, I feel that AI and robotics could be pushed to create a robot capable of playing a more demanding sport, such as volleyball. In this paper I will split the game of volleyball into 7 individual requirements, with solutions requiring both Artificial intelligence and robotics.
+
+\section{Player (robot) positioning}
+The main way the robot would determine it's positioning would be through the use of self-localisation methods \cite{teimouri2016hybrid}. This method requires two kinds of measurements: relative measurements and absolute measurements. The primary source of these for the on-court robot would be through its own sensors such as cameras \cite{teimouri2016hybrid}. It could, however, also use the locations of its team mates relative to itself to calculate a rough location. The most obvious way of allocating a position for the robot would be to hard code set locations on court, relative to each robot's starting position for them to move to, however, this would not allow the team to adapt to irregularities, like a ball being tipped over a block, rather than hit. There are three main types of localisation that will take place; local localisation, global localisation and kidnapped localisation \cite{teimouri2016hybrid}. The most effective way to overcome these is to use a hybrid filter of Monte Carlo localisation (MCL) \cite{dellaert1999monte} and an Unscented Kalman filter \cite{teimouri2016hybrid} to determine localisation. An alternative method would be to use a behaviour tree much like the Goalkeeper algorithm in \cite{sungkono2016decision}. This again, would limit flexibility in both behaviour and locations, but could prove to be much easier to compute.
+
+\section{Tracking the Ball and Opposition }
+\subsection{Tracking the Opposition}
+A key skill or requirement in Volleyball is the ability to track the opposition to best locate attacking spaces and to predict their attacks. The key problem with this, for an on-court robot would be that the intersection of players wearing the same colours happens very frequently \cite{cheng2014player}. This means that traditional camera based colour sensors would not be an effective means of tracking the players. For tracking the opposition team a mix of motion tracking, template tracking and colour tracking could prove most effective \cite{pers2000computer}. Although none of the three are infallible individually, they can most probably cover for each others weaknesses when used in tandem.
+ \subsection{Tracking the Ball}
+Tracking the trajectory of the ball is critical to Volleyball. It is needed to track where the ball needs to be dug, it is needed for the setter to know when the ball is in the correct position to set and for the hitter to make contact with the ball in a spike. Due to the fast pace of the sport, the computation needs to be done for this quickly and constantly, as there are many external factors that could affect the trajectory of the ball. However, before the robot can determine the trajectory it must first be able to identify the ball from the scene. The main way to do this would be to use Image processing \cite{wong2008developing}. However, this could prove to be too intensive as you would have to process an image every few milliseconds to be able to react the movement of the ball. This could be achieved with an Artificial Neural Network (ANN) \cite{wong2008developing} as they can be trained to judge the average size, shape and circumference of an object, then compare it to that of a ball which has been inputted prior to the match. This could then quickly determine if an object is the ball \cite{wong2008developing}. This being said, it has been proven that it is possible with the use of external cameras by \cite{vere2016neural}.At our current level of technology, the best way to predict the trajectory of the ball, would require that 2 or more robots have a view of the ball, which is more than likely on a court of 6 robots. They could use two 2d laser scanners to track the ball. This becomes difficult as the velocity of the ball is required to predict the trajectory of the ball, much like the shuttlecock in \cite{waghmare2016badminton}. A method that would require only one robot, with stereoscopic vision would be to lower the framerate of the image processing to 60Hz which allows for the ball trajectory to be determined in roughly 0.085 seconds after the opposition has hit the ball \cite{nakai1998volleyball}. This would only be viable if the opposition didn't spike the ball.
+
+\section{Teamwork}
+Communication between the robots on court would be critical to the success of the team. This would help with localisation, as each robot could communicate their positions \cite{teimouri2016hybrid}. Teamwork is key to a successful strategy on court as each agent must exhibit an individual behaviour that supports the teams strategy \cite{larik2016using}. This means that in defence, for example, the front court robots would block and the back court players would move to their respective defensive positions. The general way to communicate between the robots in Robo Soccer would be to split the pitch into a set amount of equally sized squares \cite{ruiz2008team}. However, as Volleyball adds a certain amount of verticality, it may be best to split the court and space above the court in to equally sized cubes, so the ball could be located while airborne, and any jumping robots would be able to send their location mid jump.
+
+\section{Attacking the Ball}
+\subsection{Jumping}
+In volleyball, attacking the ball generally refers to a downward hit or spike towards the oppositions half of the court. In order for a robot to do this they must be able to jump effectively, while still tracking the movement of the opposition blockers and the ball. In my opinion, this is the hardest part of the sport for an AI robot to achieve as requires the largest amount of multitasking for the AI and creates the greatest physical strain on the robot. There are two main types of jumping robot: Direct actuation robots and indirect actuation robots \cite{zhang2016review}. However, the only type that would be able effectively play volleyball is a direct actuation robot as it would have a more upright posture, allowing it to hit more effectively and allowing it to jump vertically much better as shown in \cite{zhang2016review}. A possible work around for the limited technology of jumping robots would be to use drones or UAVs instead of traditional land based robots as suggested in \cite{shoval2016volleybot}. However, for the matter of this paper, that would give the drones an unwarranted advantage over the players due to unlimited verticality, so I won't be considering this in the final outcome.
+\subsection{Hitting the Ball}
+After the robot has jumped for the ball they have to hit the ball. This would be simple if the robots did not have to move, as they could be a derivative of the training robots such as that described in \cite{li2007development} that are commonly used for training purposes. However, more flexibility is needed. To hit the ball down effectively they would need to control their hand separately from their arm to curl the ball down. This could be argued to be nonprehensile manipulation \cite{pekarovskiy2015online}. One such method to manage this manipulation would be through the use of Dynamic Movement Primitives \cite{ijspeert2002movement}, however, this would not be the most effective way. A more effective way of managing the manipulation of the hand would be to use Laplacian Trajectory Editing as described in \cite{nierhoff2012fast}. This would allow the robot to quickly adjust to movements of the set ball.
+
+However, it is not as simple as just hitting the ball. The robot must know where to hit the ball too. That is to say, they must be able to spot weaknesses in things like the opponents block and hit through them. These weaknesses, or irregularities are known as motor errors. The motor error tolerance range is the range in which these irregularities occur \cite{ishimura1993information}, for example the motor error tolerance range in a block, would be the size of the gap between the blockers. However, it is very hard for a robot to judge this as it is not a constant value. However, the image processing method previously suggested for tracking the ball in \cite{wong2008developing} could be used to measure roughly the size of this gap. This would be to inaccurate to use effectively in my opinion though. 
+
+\section{Conclusion}
+In conclusion, I believe that, although robots could be made to play volleyball against other robots, much like the robo soccer leagues. Currently, a robotic volleyball team could not compete with a human team. This is because the sheer amount of visual data that must be processed over such a small time is just not achievable at the current time. I feel like if a Robo-Volleyball league was created, it would progress the development of visual processing speed, and the physical hardiness of robotics much more rapidly than that of current robotic sports leagues. 
+
+
+\bibliography{references}
+\bibliographystyle{ieeetran}
+
+
+\end{document}
